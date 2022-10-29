@@ -1,1 +1,1 @@
-# MisionTic---SGM
+# MisionTic-SGM
