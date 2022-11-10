@@ -37,7 +37,7 @@ public class Paciente implements Serializable {
     public String toString() {
         return "Paciente [dni_paciente=" + dni_paciente + ", nombre_paciente=" + nombre_paciente
                 + ", apellido_paciente=" + apellido_paciente + ", sexo=" + sexo + ", fecha_nacimiento="
-                + fecha_nacimiento + "]";
-    }
-    
+                + fecha_nacimiento + ", usuario=" + usuario + "]";
+    } 
+       
 }
