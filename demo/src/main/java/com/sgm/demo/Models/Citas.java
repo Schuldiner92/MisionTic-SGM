@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="medico")
+@Table(name="citas")
 public class Citas implements Serializable {
     
     @Id

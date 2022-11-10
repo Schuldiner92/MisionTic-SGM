@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Paciente implements Serializable {
 
     @Id
-    @Column(name="ni_paciente")
+    @Column(name="dni_paciente")
     private String dni_paciente;
     @Column(name="nombre_paciente")
     private String nombre_paciente;
