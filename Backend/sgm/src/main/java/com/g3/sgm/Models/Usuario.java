@@ -1,4 +1,4 @@
-package com.sgm.demo.Models;
+package com.g3.sgm.Models;
 
 import java.io.Serializable;
 
