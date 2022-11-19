@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Medico implements Serializable {
     
     @Id
-    @Column(name="dni_medico")
+    @Column(name="id_medico")
     private String dni_medico;
     @Column(name="nombre_medico")
     private String nombre_medico;
@@ -30,11 +30,11 @@ public class Medico implements Serializable {
     @ManyToOne
     @JoinColumn(name="id_usuario")
     private Usuario usuario;
-    
+
     @Override
     public String toString() {
         return "Medico [dni_medico=" + dni_medico + ", nombre_medico=" + nombre_medico + ", apellido_medico="
                 + apellido_medico + ", especialidad=" + especialidad + ", usuario=" + usuario + "]";
-    }
-    
+    }   
+       
 }

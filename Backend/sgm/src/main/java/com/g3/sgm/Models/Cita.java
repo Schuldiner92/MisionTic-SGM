@@ -31,10 +31,10 @@ public class Cita implements Serializable {
     @Column(name="observacion")
     private String observacion;    
     @ManyToOne
-    @JoinColumn(name="dni_medico")
+    @JoinColumn(name="id_medico")
     private Medico medico;
     @ManyToOne
-    @JoinColumn(name="dni_paciente")
+    @JoinColumn(name="id_paciente")
     private Paciente paciente;
 
     @Override
