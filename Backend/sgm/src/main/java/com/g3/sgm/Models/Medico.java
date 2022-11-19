@@ -37,13 +37,13 @@ public class Medico implements Serializable {
     @Column(name="especialidad")
     private String especialidad;
     @ManyToOne
-    @JoinColumn(name="id_usuario")
-    private User usuario;
+    @JoinColumn(name="id_user")
+    private User user;
 
     @Override
     public String toString() {
         return "Medico [dni_medico=" + id_medico + ", nombre_medico=" + nombre_medico + ", apellido_medico="
-                + apellido_medico + ", especialidad=" + especialidad + ", usuario=" + usuario + "]";
+                + apellido_medico + ", especialidad=" + especialidad + ", usuario=" + user + "]";
     }   
        
 }

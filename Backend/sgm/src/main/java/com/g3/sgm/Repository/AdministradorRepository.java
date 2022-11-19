@@ -12,10 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface AdministradorRepository extends CrudRepository<Administrador,String> {
-    //Operación de Autentiiicación (SELECT)
-    @Transactional(readOnly=true)//No afecta integridad base de datos
+    //Autentiiicación 
+    @Transactional(readOnly=true)
     @Query(value="SELECT * FROM administrador WHERE id_administrador= :usuario AND clave_administrador= :clave", nativeQuery=true)
     public Administrador login(@Param("usuario") String usuario, @Param("clave") String clave);
-
     public Administrador login(@Valid User usuario, String sha1); 
 }

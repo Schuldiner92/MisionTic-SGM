@@ -40,14 +40,14 @@ public class Paciente implements Serializable {
     @Column(name="fecha_nacimiento")
     private String fecha_nacimiento;
     @ManyToOne
-    @JoinColumn(name="id_usuario")
-    private User usuario;
+    @JoinColumn(name="id_user")
+    private User user;
 
     @Override
     public String toString() {
         return "Paciente [dni_paciente=" + id_paciente + ", nombre_paciente=" + nombre_paciente
                 + ", apellido_paciente=" + apellido_paciente + ", sexo=" + sexo + ", fecha_nacimiento="
-                + fecha_nacimiento + ", usuario=" + usuario + "]";
+                + fecha_nacimiento + ", usuario=" + user + "]";
     }  
                
 }

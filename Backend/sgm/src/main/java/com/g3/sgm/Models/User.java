@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="usuario")
+@Table(name="user")
 public class User implements Serializable{
     
     @Id
