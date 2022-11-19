@@ -10,9 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface PacienteRepository extends CrudRepository<Paciente, String> {
 
-    // Autentificacion del paciente
-    @Transactional(readOnly=true)
-    @Query(value = "select * from paciente where id_paciente = : usuario and clave_paciente= : clave", nativeQuery = true)
-    public Paciente login(@Param("usuario") String usuario, @Param("clave") String clave);
-
+    
 }

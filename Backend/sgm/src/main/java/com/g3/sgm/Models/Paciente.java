@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,23 +21,31 @@ import lombok.Setter;
 public class Paciente implements Serializable {
 
     @Id
+    @NotEmpty(message = "El id no debe ser vacío")
+    @Size(min = 5, max = 30,message = "El id debe tener entre 5 y 30 caracteres")
     @Column(name="id_paciente")
-    private String dni_paciente;
+    private String id_paciente;
+    @NotEmpty(message = "El nombre no debe ser vacío")
+    @Size(min = 5, max = 50,message = "El nombre debe tener entre 5 y 50 caracteres")
     @Column(name="nombre_paciente")
     private String nombre_paciente;
+    @NotEmpty(message = "El apellido no debe ser vacío")
+    @Size(min = 5, max = 50,message = "El apellido debe tener entre 5 y 50 caracteres")
     @Column(name="apellido_paciente")
     private String apellido_paciente;
+    @NotEmpty(message = "El campo sexo no debe estar vacío")
     @Column(name="sexo")
     private String sexo;
+    @NotEmpty(message = "La fecha de nacimiento no debe estar vacía")
     @Column(name="fecha_nacimiento")
     private String fecha_nacimiento;
     @ManyToOne
     @JoinColumn(name="id_usuario")
-    private Usuario usuario;
+    private User usuario;
 
     @Override
     public String toString() {
-        return "Paciente [dni_paciente=" + dni_paciente + ", nombre_paciente=" + nombre_paciente
+        return "Paciente [dni_paciente=" + id_paciente + ", nombre_paciente=" + nombre_paciente
                 + ", apellido_paciente=" + apellido_paciente + ", sexo=" + sexo + ", fecha_nacimiento="
                 + fecha_nacimiento + ", usuario=" + usuario + "]";
     }  
