@@ -31,8 +31,18 @@ public class PacienteService {
     }
 
     @Transactional(readOnly=true)
-    public List<Paciente> findAll() {
+    public List<Paciente> findByAll() {
         return (List<Paciente>) pacienteRepository.findAll();
+    }
+
+    @Transactional(readOnly=true)
+    public List<Paciente> consulta_paciente(String idu) {
+        return (List<Paciente>) pacienteRepository.consulta_paciente(idu);
+    }
+    
+    @Transactional(readOnly=false)
+    public void cambiar_nom_ape (String idp, String nombre, String apellido){
+        pacienteRepository.cambiar_nom_ape(idp, nombre, apellido);
     }
     
 }
