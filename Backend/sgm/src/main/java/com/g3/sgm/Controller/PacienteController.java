@@ -4,7 +4,6 @@ import com.g3.sgm.Models.User;
 import com.g3.sgm.Models.Paciente;
 import com.g3.sgm.Repository.AdministradorRepository;
 import com.g3.sgm.Repository.UserRepository;
-import com.g3.sgm.Repository.PacienteRepository;
 import com.g3.sgm.Service.PacienteService;
 import com.g3.sgm.Security.Hash;
 
@@ -101,8 +100,7 @@ public class PacienteController {
             return new ResponseEntity<>(pacienteService.findByAll(),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }  
-          
+        }            
     }
 
     @GetMapping("/list/{id}") 

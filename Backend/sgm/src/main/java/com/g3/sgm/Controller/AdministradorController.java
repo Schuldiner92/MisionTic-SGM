@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RequestMapping("/administrador")
 public class AdministradorController {
+    
     @Autowired
     private AdministradorRepository administradorRepository; 
     @Autowired
@@ -60,9 +61,7 @@ public class AdministradorController {
       
        } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-       }
-       
-        
+       }         
     }
     
     @PutMapping(value="/put") 
@@ -83,8 +82,7 @@ public class AdministradorController {
             return new ResponseEntity<>(obj, HttpStatus.OK); 
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-        
+        }        
     }
    
     @GetMapping("/list") 
@@ -96,8 +94,7 @@ public class AdministradorController {
             return new ResponseEntity<>(administradorService.findAll(),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }  
-          
+        }           
     }
     
     @GetMapping("/list/{id}") 
@@ -118,4 +115,5 @@ public class AdministradorController {
         clave=Hash.sha1(clave);
         return administradorService.login(usuario, clave);
     }
+
 }
