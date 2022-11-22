@@ -1,6 +1,7 @@
 package com.g3.sgm.Models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,13 +24,9 @@ public class Cita implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id_cita")    
-    private int id_cita;
-    @NotEmpty(message = "El campo no debe estar vacío")
-    @Column(name="fecha")
-    private String fecha;
-    @NotEmpty(message = "El campo no debe estar vacío")
-    @Column(name="hora")
-    private String hora;    
+    private int id_cita;    
+    @Column(name="fecha_hora")
+    private Date fecha_hora;      
     @Column(name="observacion")
     private String observacion;    
     @ManyToOne
@@ -42,7 +38,7 @@ public class Cita implements Serializable {
 
     @Override
     public String toString() {
-        return "Citas [id_cita=" + id_cita + ", fecha=" + fecha + ", hora=" + hora + ", observacion=" + observacion
+        return "Citas [id_cita=" + id_cita + ", fecha_hora=" + fecha_hora  + ", observacion=" + observacion
                 + ", paciente=" + paciente + ", medico=" + medico + "]";
     }
         

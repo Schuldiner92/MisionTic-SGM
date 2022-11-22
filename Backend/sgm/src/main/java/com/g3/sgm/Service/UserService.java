@@ -14,18 +14,18 @@ public class UserService {
     private UserRepository userRepository;
 
     @Transactional(readOnly=false)
-    public User save(User Usuario) {
-        return userRepository.save(Usuario);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     @Transactional(readOnly=false)
-    public void delete(Integer id) {
+    public void delete(String id) {
         userRepository.deleteById(id);
     }
 
     @Transactional(readOnly=true)
-    public User findById(Integer id) {
-        return userRepository.findById(id).orElse(null);
+    public User findById(String string) {
+        return userRepository.findById(string).orElse(null);
     }
 
     @Transactional(readOnly=true)
@@ -34,7 +34,7 @@ public class UserService {
     }
 
     @Transactional(readOnly=true)
-    public User login(Integer usuario, String clave) {
+    public User login(String usuario, String clave) {
         return userRepository.login(usuario, clave);
     }  
 

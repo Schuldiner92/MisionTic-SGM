@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer>{
+public interface UserRepository extends CrudRepository<User, String>{
     //Autentificacion del usuario
     @Transactional(readOnly=true)
-    @Query(value = "select * from user where id_user = : usuario and clave_paciente= : clave", nativeQuery = true)
-    public User login(@Param("usuario") Integer usuario, @Param("clave") String clave);
+    @Query(value = "select * from user where id_user = :usuario and clave= :clave", nativeQuery = true)
+    public User login(@Param("usuario") String usuario, @Param("clave") String clave);
 
 }

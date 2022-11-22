@@ -1,6 +1,7 @@
 package com.g3.sgm.Models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,12 +34,12 @@ public class Paciente implements Serializable {
     @Size(min = 5, max = 50,message = "El apellido debe tener entre 5 y 50 caracteres")
     @Column(name="apellido_paciente")
     private String apellido_paciente;
+    @Size(min = 1, max = 10,message = "Debe tener entre 1 y 10 caracteres")
     @NotEmpty(message = "El campo sexo no debe estar vacío")
     @Column(name="sexo")
-    private String sexo;
-    @NotEmpty(message = "La fecha de nacimiento no debe estar vacía")
+    private String sexo;    
     @Column(name="fecha_nacimiento")
-    private String fecha_nacimiento;
+    private Date fecha_nacimiento;
     @ManyToOne
     @JoinColumn(name="id_user")
     private User user;

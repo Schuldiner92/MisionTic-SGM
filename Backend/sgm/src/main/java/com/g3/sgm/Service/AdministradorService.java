@@ -1,7 +1,6 @@
 package com.g3.sgm.Service;
 import com.g3.sgm.Models.Administrador;
 import com.g3.sgm.Repository.AdministradorRepository;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired; 
@@ -10,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AdministradorService {
+    
     @Autowired
     private AdministradorRepository administradorRepository;
 

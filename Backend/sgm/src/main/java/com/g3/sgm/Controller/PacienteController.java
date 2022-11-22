@@ -117,7 +117,7 @@ public class PacienteController {
 
     //Consumo de Recursos User
     @PutMapping(value="/cambiar_nom_ape") 
-    public void cambiar_nom_ape(@RequestParam("idp") String idp,@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido, @RequestHeader("clave")String clave,@RequestHeader("usuario")Integer usuario){ 
+    public void cambiar_nom_ape(@RequestParam("idp") String idp,@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
         User user1=new User();
         user1=userRepository.login(usuario, Hash.sha1(clave));
         if (user1!=null) {
@@ -127,7 +127,7 @@ public class PacienteController {
 
     @GetMapping("/consulta_paciente")
     @ResponseBody
-    public ResponseEntity<List<Paciente>> consulta_paciente(@RequestParam ("idu") String idu,@RequestHeader ("usuario") Integer usuario,@RequestHeader ("clave") String clave) { 
+    public ResponseEntity<List<Paciente>> consulta_paciente(@RequestParam ("idu") String idu,@RequestHeader ("usuario") String usuario,@RequestHeader ("clave") String clave) { 
         User user=new User();
         user=userRepository.login(usuario, Hash.sha1(clave));
         if (user!=null) {

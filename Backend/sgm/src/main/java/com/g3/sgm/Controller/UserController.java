@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/usuario")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class UserController {
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
         if (admon!=null) {
-            user.setClave(Hash.sha1(user.getClave()));
+            user.setClave_user(Hash.sha1(user.getClave_user()));
             return new ResponseEntity<>(userService.save(user), HttpStatus.OK); 
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); 
@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @DeleteMapping(value="/{id}") 
-    public ResponseEntity<User> eliminar(@PathVariable Integer id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+    public ResponseEntity<User> eliminar(@PathVariable String id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
        if (admon!=null) {
@@ -64,18 +64,18 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
        }      
     }
-
+    
     @PutMapping(value="/put") 
     @ResponseBody
     public ResponseEntity<User> editar(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario,@Valid @RequestBody User user){ 
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
         if (admon!=null) {
-            user.setClave(Hash.sha1(user.getClave()));
+            user.setClave_user(Hash.sha1(user.getClave_user()));
             User obj = userService.findById(user.getId_user()); 
             if(obj!=null) { 
                 obj.setEmail(user.getEmail());
-                obj.setClave(user.getClave());
+                obj.setClave_user(user.getClave_user());
                 userService.save(user); 
             } 
             else 
@@ -100,7 +100,7 @@ public class UserController {
 
     @GetMapping("/list/{id}") 
     @ResponseBody
-    public ResponseEntity<User> consultaPorId(@PathVariable Integer id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+    public ResponseEntity<User> consultaPorId(@PathVariable String id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
         if (admon!=null) {
@@ -112,9 +112,9 @@ public class UserController {
 
     @GetMapping("/login")
     @ResponseBody
-    public User ingresar(@RequestParam ("usuario") Integer usuario,@RequestParam ("clave") String clave) {
+    public User ingresar(@RequestParam ("usuario") String usuario,@RequestParam ("clave") String clave) {
         clave=Hash.sha1(clave);
         return userService.login(usuario, clave); 
-    }
+    }    
     
 }
