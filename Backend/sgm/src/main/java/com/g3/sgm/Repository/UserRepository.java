@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserRepository extends CrudRepository<User, String>{
     //Autentificacion del usuario
     @Transactional(readOnly=true)
-    @Query(value = "select * from user where id_user = :usuario and clave= :clave", nativeQuery = true)
+    @Query(value = "select * from user where id_user = :usuario and clave_user= :clave", nativeQuery = true)
     public User login(@Param("usuario") String usuario, @Param("clave") String clave);
 
 }

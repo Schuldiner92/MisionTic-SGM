@@ -37,7 +37,7 @@ public class UserController {
 
     @PostMapping(value="/post")
     @ResponseBody
-    public ResponseEntity<User> agregar(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario, @Valid @RequestBody User user){   
+    public ResponseEntity<User> agregar(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario, @RequestBody User user){   
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
         if (admon!=null) {

@@ -1,7 +1,6 @@
 package com.g3.sgm.Models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +21,7 @@ import lombok.Setter;
 public class Paciente implements Serializable {
 
     @Id
-    @NotEmpty(message = "El id no debe ser vacío")
-    @Size(min = 5, max = 30,message = "El id debe tener entre 5 y 30 caracteres")
+    @NotEmpty(message = "El id no debe ser vacío")    
     @Column(name="id_paciente")
     private String id_paciente;
     @NotEmpty(message = "El nombre no debe ser vacío")
@@ -39,7 +37,7 @@ public class Paciente implements Serializable {
     @Column(name="sexo")
     private String sexo;    
     @Column(name="fecha_nacimiento")
-    private Date fecha_nacimiento;
+    private String fecha_nacimiento;
     @ManyToOne
     @JoinColumn(name="id_user")
     private User user;

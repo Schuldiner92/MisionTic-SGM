@@ -1,9 +1,8 @@
 package com.g3.sgm.Controller;
 import com.g3.sgm.Models.Administrador;
+import com.g3.sgm.Security.Hash;
 import com.g3.sgm.Repository.AdministradorRepository;
 import com.g3.sgm.Service.AdministradorService;
-import com.g3.sgm.Security.Hash;
-
 import java.util.List;
 
 import javax.validation.Valid;
@@ -43,8 +42,7 @@ public class AdministradorController {
             return new ResponseEntity<>(administradorService.save(administrador), HttpStatus.OK); 
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); 
-        }
-            
+        }            
     }
    
     @DeleteMapping(value="/{id}") 
@@ -61,7 +59,7 @@ public class AdministradorController {
       
        } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-       }         
+       }               
     }
     
     @PutMapping(value="/put") 
@@ -94,7 +92,7 @@ public class AdministradorController {
             return new ResponseEntity<>(administradorService.findAll(),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }           
+        }            
     }
     
     @GetMapping("/list/{id}") 
