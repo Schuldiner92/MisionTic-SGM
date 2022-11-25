@@ -12,22 +12,22 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="user")
-public class User implements Serializable{
+@Table(name="userr")
+public class Userr implements Serializable{
     
     @Id    
-    @Column(name="id_user")
-    private String id_user;    
+    @Column(name="id_userr")
+    private String id_userr;    
     @Column(name="email")
     private String email;
-    @Column(name="clave_user")
-    private String clave_user;
+    @Column(name="clave_userr")
+    private String clave_userr;
     @Column(name="rol")
     private String rol;
 
     @Override
     public String toString() {
-        return "Usuario [id_usuario=" + id_user + ", email=" + email + ", clave_user=" + clave_user + ", rol=" + rol + "]";
+        return "Usuario [id_usuario=" + id_userr + ", email=" + email + ", clave_userr=" + clave_userr + ", rol=" + rol + "]";
     }
     
 }

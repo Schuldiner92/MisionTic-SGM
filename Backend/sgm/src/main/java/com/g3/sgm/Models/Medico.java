@@ -21,29 +21,28 @@ import lombok.Setter;
 public class Medico implements Serializable {
     
     @Id
-    @NotEmpty(message = "El id no debe ser vacío")
-    @Size(min = 5, max = 30,message = "El id debe tener entre 5 y 30 caracteres")
+    @NotEmpty(message = "El id no debe ser vacío")    
     @Column(name="id_medico")
     private String id_medico;
     @NotEmpty(message = "El nombre no debe ser vacío")
-    @Size(min = 5, max = 50,message = "El nombre debe tener entre 5 y 50 caracteres")
+    @Size(min = 3, max = 50,message = "El nombre debe tener entre 3 y 50 caracteres")
     @Column(name="nombre_medico")
     private String nombre_medico;
     @NotEmpty(message = "El apellido no debe ser vacío")
-    @Size(min = 5, max = 50,message = "El apellido debe tener entre 5 y 50 caracteres")
+    @Size(min = 3, max = 50,message = "El apellido debe tener entre 3 y 50 caracteres")
     @Column(name="apellido_medico")
     private String apellido_medico;
     @NotEmpty(message = "El campo especialidad no debe estar vacío")
     @Column(name="especialidad")
     private String especialidad;
     @ManyToOne
-    @JoinColumn(name="id_user")
-    private User user;
+    @JoinColumn(name="id_userr")
+    private Userr userr;
 
     @Override
     public String toString() {
         return "Medico [dni_medico=" + id_medico + ", nombre_medico=" + nombre_medico + ", apellido_medico="
-                + apellido_medico + ", especialidad=" + especialidad + ", usuario=" + user + "]";
+                + apellido_medico + ", especialidad=" + especialidad + ", userr=" + userr + "]";
     }   
        
 }

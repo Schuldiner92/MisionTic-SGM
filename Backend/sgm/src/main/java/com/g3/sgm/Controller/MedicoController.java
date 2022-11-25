@@ -1,8 +1,10 @@
 package com.g3.sgm.Controller;
 import com.g3.sgm.Models.Administrador;
 import com.g3.sgm.Models.Userr;
+import com.g3.sgm.Models.Medico;
 import com.g3.sgm.Repository.AdministradorRepository;
-import com.g3.sgm.Service.UserService;
+import com.g3.sgm.Repository.UserrRepository;
+import com.g3.sgm.Service.MedicoService;
 import com.g3.sgm.Security.Hash;
 
 import java.util.List;
@@ -26,57 +28,59 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/userr")
-public class UserController {
-
+@RequestMapping("/medico")
+public class MedicoController {
+    
     @Autowired
     private AdministradorRepository administradorRepository;
 
     @Autowired
-    private UserService userrService;
+    private UserrRepository userRepository;
 
+    @Autowired
+    private MedicoService medicoService;
+
+    //Consumos de Recursos Administrador
     @PostMapping(value="/post")
     @ResponseBody
-    public ResponseEntity<Userr> agregar(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario, @RequestBody Userr userr){   
+    public ResponseEntity<Medico> agregar(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario, @Valid @RequestBody Medico medico){   
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
         if (admon!=null) {
-            userr.setClave_userr(Hash.sha1(userr.getClave_userr()));
-            return new ResponseEntity<>(userrService.save(userr), HttpStatus.OK); 
+            return new ResponseEntity<>(medicoService.save(medico), HttpStatus.OK); 
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); 
         }            
     }
 
     @DeleteMapping(value="/{id}") 
-    public ResponseEntity<Userr> eliminar(@PathVariable String id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+    public ResponseEntity<Medico> eliminar(@PathVariable String id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
        if (admon!=null) {
-            Userr obj = userrService.findById(id); 
+            Medico obj = medicoService.findById(id); 
             if(obj!=null) 
-                userrService.delete(id);
+                medicoService.delete(id);
             else 
                 return new ResponseEntity<>(obj, HttpStatus.INTERNAL_SERVER_ERROR); 
-            return new ResponseEntity<>(obj, HttpStatus.OK); 
-      
+            return new ResponseEntity<>(obj, HttpStatus.OK);       
        } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-       }      
+       }           
     }
-    
+
     @PutMapping(value="/put") 
     @ResponseBody
-    public ResponseEntity<Userr> editar(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario,@Valid @RequestBody Userr userr){ 
+    public ResponseEntity<Medico> editar(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario,@Valid @RequestBody Medico medico){ 
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
         if (admon!=null) {
-            userr.setClave_userr(Hash.sha1(userr.getClave_userr()));
-            Userr obj = userrService.findById(userr.getId_userr()); 
+            Medico obj = medicoService.findById(medico.getId_medico()); 
             if(obj!=null) { 
-                obj.setEmail(userr.getEmail());
-                obj.setClave_userr(userr.getClave_userr());
-                userrService.save(userr); 
+                obj.setNombre_medico(medico.getNombre_medico());
+                obj.setApellido_medico(medico.getApellido_medico());
+                obj.setEspecialidad(medico.getEspecialidad());                
+                medicoService.save(medico); 
             } 
             else 
                 return new ResponseEntity<>(obj, HttpStatus.INTERNAL_SERVER_ERROR); 
@@ -88,11 +92,11 @@ public class UserController {
 
     @GetMapping("/list") 
     @ResponseBody
-    public ResponseEntity<List<Userr>> consultarTodo(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){
+    public ResponseEntity<List<Medico>> consultarTodo(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
         if (admon!=null) {
-            return new ResponseEntity<>(userrService.findAll(),HttpStatus.OK);
+            return new ResponseEntity<>(medicoService.findByAll(),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }            
@@ -100,21 +104,36 @@ public class UserController {
 
     @GetMapping("/list/{id}") 
     @ResponseBody
-    public ResponseEntity<Userr> consultaPorId(@PathVariable String id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+    public ResponseEntity<Medico> consultaPorId(@PathVariable String id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
         Administrador admon=new Administrador();
         admon=administradorRepository.login(usuario, Hash.sha1(clave));
         if (admon!=null) {
-            return new ResponseEntity<>(userrService.findById(id),HttpStatus.OK);
+            return new ResponseEntity<>(medicoService.findById(id),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }   
     }
 
-    @GetMapping("/login")
+    //Consumo de Recursos User
+    @PutMapping(value="/cambiar_nom_ape") 
+    public void cambiar_nom_ape(@RequestParam("idm") String idm,@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+        Userr user1=new Userr();
+        user1=userRepository.login(usuario, Hash.sha1(clave));
+        if (user1!=null) {
+           medicoService.cambiar_nom_ape(idm, nombre, apellido);
+        }          
+    }
+
+    @GetMapping("/consulta_medico")
     @ResponseBody
-    public Userr ingresar(@RequestParam ("usuario") String usuario,@RequestParam ("clave") String clave) {
-        clave=Hash.sha1(clave);
-        return userrService.login(usuario, clave); 
-    }    
-    
+    public ResponseEntity<List<Medico>> consulta_medico(@RequestParam ("idu") String idu,@RequestHeader ("usuario") String usuario,@RequestHeader ("clave") String clave) { 
+        Userr user=new Userr();
+        user=userRepository.login(usuario, Hash.sha1(clave));
+        if (user!=null) {
+            return new ResponseEntity<>(medicoService.consulta_medico(idu),HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }        
+    }
+
 }

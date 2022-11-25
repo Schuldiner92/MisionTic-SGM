@@ -1,9 +1,9 @@
 package com.g3.sgm.Controller;
 import com.g3.sgm.Models.Administrador;
-import com.g3.sgm.Models.User;
+import com.g3.sgm.Models.Userr;
 import com.g3.sgm.Models.Paciente;
 import com.g3.sgm.Repository.AdministradorRepository;
-import com.g3.sgm.Repository.UserRepository;
+import com.g3.sgm.Repository.UserrRepository;
 import com.g3.sgm.Service.PacienteService;
 import com.g3.sgm.Security.Hash;
 
@@ -35,7 +35,7 @@ public class PacienteController {
     private AdministradorRepository administradorRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserrRepository userRepository;
 
     @Autowired
     private PacienteService pacienteService;
@@ -118,17 +118,17 @@ public class PacienteController {
     //Consumo de Recursos User
     @PutMapping(value="/cambiar_nom_ape") 
     public void cambiar_nom_ape(@RequestParam("idp") String idp,@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
-        User user1=new User();
+        Userr user1=new Userr();
         user1=userRepository.login(usuario, Hash.sha1(clave));
         if (user1!=null) {
            pacienteService.cambiar_nom_ape(idp, nombre, apellido);
         }          
     }
 
-    @GetMapping("/consulta_paciente")
+    @GetMapping("/consulta_medico")
     @ResponseBody
     public ResponseEntity<List<Paciente>> consulta_paciente(@RequestParam ("idu") String idu,@RequestHeader ("usuario") String usuario,@RequestHeader ("clave") String clave) { 
-        User user=new User();
+        Userr user=new Userr();
         user=userRepository.login(usuario, Hash.sha1(clave));
         if (user!=null) {
             return new ResponseEntity<>(pacienteService.consulta_paciente(idu),HttpStatus.OK);

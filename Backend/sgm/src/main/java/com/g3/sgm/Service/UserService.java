@@ -1,6 +1,6 @@
 package com.g3.sgm.Service;
-import com.g3.sgm.Models.User;
-import com.g3.sgm.Repository.UserRepository;
+import com.g3.sgm.Models.Userr;
+import com.g3.sgm.Repository.UserrRepository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired; 
@@ -11,31 +11,31 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserrRepository userrRepository;
 
     @Transactional(readOnly=false)
-    public User save(User user) {
-        return userRepository.save(user);
+    public Userr save(Userr user) {
+        return userrRepository.save(user);
     }
 
     @Transactional(readOnly=false)
     public void delete(String id) {
-        userRepository.deleteById(id);
+        userrRepository.deleteById(id);
     }
 
     @Transactional(readOnly=true)
-    public User findById(String string) {
-        return userRepository.findById(string).orElse(null);
+    public Userr findById(String string) {
+        return userrRepository.findById(string).orElse(null);
     }
 
     @Transactional(readOnly=true)
-    public List<User> findAll() {
-        return (List<User>) userRepository.findAll();
+    public List<Userr> findAll() {
+        return (List<Userr>) userrRepository.findAll();
     }
 
     @Transactional(readOnly=true)
-    public User login(String usuario, String clave) {
-        return userRepository.login(usuario, clave);
+    public Userr login(String usuario, String clave) {
+        return userrRepository.login(usuario, clave);
     }  
 
 }
