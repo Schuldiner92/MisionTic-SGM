@@ -130,11 +130,11 @@ public class CitaController {
 
     @GetMapping("/consulta_cita_medico")
     @ResponseBody
-    public ResponseEntity<List<Cita>> consulta_cita_medico(@RequestParam ("idp") String idp,@RequestHeader ("usuario") String usuario,@RequestHeader ("clave") String clave) { 
+    public ResponseEntity<List<Cita>> consulta_cita_medico(@RequestParam ("idm") String idm,@RequestHeader ("usuario") String usuario,@RequestHeader ("clave") String clave) { 
         Userr userr=new Userr();
         userr=userrRepository.login(usuario, Hash.sha1(clave));
         if (userr!=null) {
-            return new ResponseEntity<>(citaService.consulta_cita_medico(idp),HttpStatus.OK);
+            return new ResponseEntity<>(citaService.consulta_cita_medico(idm),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }        
