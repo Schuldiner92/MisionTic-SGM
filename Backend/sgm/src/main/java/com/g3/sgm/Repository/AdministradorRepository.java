@@ -11,4 +11,5 @@ public interface AdministradorRepository extends CrudRepository<Administrador,St
     @Transactional(readOnly=true)
     @Query(value="SELECT * FROM administrador WHERE id_administrador= :usuario AND clave_administrador= :clave", nativeQuery=true)
     public Administrador login(@Param("usuario") String usuario, @Param("clave") String clave); 
+    
 }

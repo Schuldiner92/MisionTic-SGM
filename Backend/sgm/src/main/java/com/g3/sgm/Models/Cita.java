@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,11 +25,14 @@ public class Cita implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id_cita")    
-    private int id_cita;    
+    private int id_cita;  
+    @NotEmpty(message = "El campo fecha no debe ser vacío")
     @Column(name="fecha_hora")
     private Date fecha_hora;      
     @Column(name="observacion")
     private String observacion;    
+    @Column(name="estado")
+    private String estado;
     @ManyToOne
     @JoinColumn(name="id_medico")
     private Medico medico;

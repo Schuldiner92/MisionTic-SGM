@@ -35,7 +35,7 @@ public class PacienteController {
     private AdministradorRepository administradorRepository;
 
     @Autowired
-    private UserrRepository userRepository;
+    private UserrRepository userrRepository;
 
     @Autowired
     private PacienteService pacienteService;
@@ -118,9 +118,9 @@ public class PacienteController {
     //Consumo de Recursos User
     @PutMapping(value="/cambiar_nom_ape") 
     public void cambiar_nom_ape(@RequestParam("idp") String idp,@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
-        Userr user1=new Userr();
-        user1=userRepository.login(usuario, Hash.sha1(clave));
-        if (user1!=null) {
+        Userr userr1=new Userr();
+        userr1=userrRepository.login(usuario, Hash.sha1(clave));
+        if (userr1!=null) {
            pacienteService.cambiar_nom_ape(idp, nombre, apellido);
         }          
     }
@@ -128,9 +128,9 @@ public class PacienteController {
     @GetMapping("/consulta_medico")
     @ResponseBody
     public ResponseEntity<List<Paciente>> consulta_paciente(@RequestParam ("idu") String idu,@RequestHeader ("usuario") String usuario,@RequestHeader ("clave") String clave) { 
-        Userr user=new Userr();
-        user=userRepository.login(usuario, Hash.sha1(clave));
-        if (user!=null) {
+        Userr userr=new Userr();
+        userr=userrRepository.login(usuario, Hash.sha1(clave));
+        if (userr!=null) {
             return new ResponseEntity<>(pacienteService.consulta_paciente(idu),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

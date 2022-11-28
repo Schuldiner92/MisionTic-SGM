@@ -41,7 +41,7 @@ public class MedicoService {
     }
     
     @Transactional(readOnly=false)
-    public void cambiar_nom_ape (String idm, String nombre, String apellido){
+    public void cambiar_nom_ape(String idm, String nombre, String apellido){
         medicoRepository.cambiar_nom_ape(idm, nombre, apellido);
     }
     

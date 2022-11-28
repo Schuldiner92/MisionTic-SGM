@@ -21,6 +21,5 @@ public interface PacienteRepository extends CrudRepository<Paciente, String> {
     @Modifying
     @Query(value="UPDATE paciente SET nombre_paciente= :nombre, apellido_paciente= :apellido WHERE id_paciente like :idp", nativeQuery=true)
     public void cambiar_nom_ape(@Param("idp") String idp,@Param("nombre") String nombre, @Param("apellido") String apellido); 
-    
-    
+        
 }
