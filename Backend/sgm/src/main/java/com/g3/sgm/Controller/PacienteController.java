@@ -125,7 +125,7 @@ public class PacienteController {
         }          
     }
 
-    @GetMapping("/consulta_medico")
+    @GetMapping("/consulta_paciente")
     @ResponseBody
     public ResponseEntity<List<Paciente>> consulta_paciente(@RequestParam ("idu") String idu,@RequestHeader ("usuario") String usuario,@RequestHeader ("clave") String clave) { 
         Userr userr=new Userr();
