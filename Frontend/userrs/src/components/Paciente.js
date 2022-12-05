@@ -31,6 +31,10 @@ const Paciente = () => {
             navigate("/menupaciente");
         }
     }
+
+    const Regresar = () => {               
+        navigate("/menupaciente")
+    }
     return(
         <div className='container'>
             <div className='row'>
@@ -55,12 +59,17 @@ const Paciente = () => {
                                     <td> { paciente.sexo } </td>
                                     <td> { paciente.fecha_nacimiento.substring(0,10) } </td>                                    
                                     <td>
-                                        <Link to={`/editarpaciente/${paciente.id_paciente}`} className='btn btn-dark'><i className="far fa-edit"></i>Editar</Link>                                        
+                                        <Link to={`/editarpaciente/${paciente.id_paciente}`} className='btn btn-dark'><i className="far fa-edit"></i> Editar</Link>                                        
                                     </td>
                                 </tr>
                             )) }
                         </tbody>
                     </table>
+                    <form className="d-flex">
+                    <button className="btn btn-outline-dark" type="button" onClick={Regresar}>
+                        Volver
+                    </button>
+                </form>
                 </div>    
             </div>
         </div>

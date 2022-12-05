@@ -1,4 +1,3 @@
-import swal from "sweetalert"
 import axios from "axios";
 import { useState,useEffect }  from "react";
 import { useNavigate, useParams} from "react-router-dom";
@@ -25,8 +24,9 @@ const EditarPaciente = () => {
             method: "PUT",
             url: URI + "cambiar_nom_ape?idp="+id_paciente+"&nombre="+nombre_paciente+"&apellido="+apellido_paciente,
             headers: headers 
-          });
-          navigate("/menupaciente");
+        });
+          
+        navigate("/menupaciente");
     }
     useEffect( ()=>{
         getPacienteById()

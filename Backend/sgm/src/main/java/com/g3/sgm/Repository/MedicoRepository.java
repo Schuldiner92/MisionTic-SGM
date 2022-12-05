@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface MedicoRepository extends CrudRepository<Medico, String>{
     //Seleccionar medico de un user en particular
     @Transactional(readOnly=true)
-    @Query(value="SELECT * FROM medico WHERE id_user= :idu", nativeQuery=true)
+    @Query(value="SELECT * FROM medico WHERE id_userr= :idu", nativeQuery=true)
     public List<Medico> consulta_medico(@Param("idu") String idu); 
     //Modificar nombre y apellidos de un medico
     @Transactional(readOnly=false)   
