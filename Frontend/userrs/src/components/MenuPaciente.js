@@ -20,7 +20,7 @@ const MenuPaciente = () => {
                     <a className='btn btn-dark' href="/paciente"><i className="fas fa-user-alt"></i> Mis Datos</a>
                     </li>
                     <li className="nav-item">
-                    <a className='btn btn-dark' href="/citaspaciente"><i className="fas fa-user-alt"></i> Citas</a>
+                    <a className='btn btn-dark' href="/citapaciente"><i className="fas fa-user-alt"></i> Citas</a>
                     </li>
                 </ul>
                 <form className="d-flex">

@@ -32,7 +32,7 @@ const EditarPaciente = () => {
     
     useEffect(()=>{
         getPacienteById();
-    },[]) //Los corchetes [] evitan que se autodigiten los datos en los input de forma infinita
+    },[]) //Los corchetes [] evitan que los datos se autodigiten infinitamente en los input
     
     const getPacienteById = async () => {
         try{
@@ -48,13 +48,13 @@ const EditarPaciente = () => {
             setFecha_nacimiento(res.data.fecha_nacimiento)
         }
         catch (error) {
-            swal("¡No tiene Acceso a esta Opción!", "Presiona el butón!", "error");
+            swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");
             navigate("/menupaciente");
         }        
     }    
     
     const Regresar = () => {               
-        navigate("/menupaciente")
+        navigate("/paciente")
     }
 
     
@@ -123,7 +123,7 @@ const EditarPaciente = () => {
     </form>
     <p></p>
     <button className="btn btn-outline-dark" type="button" onClick={Regresar}>
-        Regresar
+        Volver
     </button>
     </div>
     </div>

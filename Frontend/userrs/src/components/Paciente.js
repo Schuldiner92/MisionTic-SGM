@@ -35,6 +35,7 @@ const Paciente = () => {
     const Regresar = () => {               
         navigate("/menupaciente")
     }
+    
     return(
         <div className='container'>
             <div className='row'>
