@@ -124,7 +124,7 @@ public class PacienteController {
            pacienteService.cambiar_nom_ape(idp, nombre, apellido);
         }          
     }
-
+    
     @GetMapping("/consulta_paciente")
     @ResponseBody
     public ResponseEntity<List<Paciente>> consulta_paciente(@RequestParam ("idu") String idu,@RequestHeader ("usuario") String usuario,@RequestHeader ("clave") String clave) { 
@@ -135,6 +135,18 @@ public class PacienteController {
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }        
+    }
+
+    @GetMapping("/consulta/{id}") 
+    @ResponseBody
+    public ResponseEntity<Paciente> consultaPorId_userr(@PathVariable String id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+        Userr userr=new Userr();
+        userr=userrRepository.login(usuario, Hash.sha1(clave));
+        if (userr!=null) {
+            return new ResponseEntity<>(pacienteService.findById(id),HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }   
     }
 
 }

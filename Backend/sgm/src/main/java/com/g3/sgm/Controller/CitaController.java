@@ -140,6 +140,18 @@ public class CitaController {
         }        
     }  
 
+    @GetMapping("/consulta/{id}") 
+    @ResponseBody
+    public ResponseEntity<Cita> consultaPorId_userr(@PathVariable Integer id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+        Userr userr=new Userr();
+        userr=userrRepository.login(usuario, Hash.sha1(clave));
+        if (userr!=null) {
+            return new ResponseEntity<>(citaService.findById(id),HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }   
+    }
+
     @PutMapping(value="/agregar_observacion") 
     public void agregar_observacion(@RequestParam("idm") String idm,@RequestParam("observacion") String observacion, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
         Userr userr1=new Userr();

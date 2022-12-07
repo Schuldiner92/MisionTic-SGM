@@ -24,10 +24,13 @@ const Login = () => {
                 navigate("/");
                 
             } else {
-               sessionStorage.setItem("usuario",id_userr);
-               sessionStorage.setItem("clave",clave_userr);
-               swal("Bienvenido "+res.data.email+"!", "Presiona el botón!", "success");
-               navigate("/menupaciente");
+                sessionStorage.setItem("usuario",id_userr);
+                sessionStorage.setItem("clave",clave_userr);
+                swal("Bienvenido "+res.data.email+"!", "Presiona el botón!", "success");
+                if(res.data.rol==="P")  //
+                    navigate("/menupaciente");
+                else
+                    navigate("/menumedico");
             }
         }
         catch (error) {

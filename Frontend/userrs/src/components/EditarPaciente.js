@@ -1,3 +1,4 @@
+import swal from "sweetalert"
 import axios from "axios";
 import { useState,useEffect }  from "react";
 import { useNavigate, useParams} from "react-router-dom";
@@ -25,27 +26,33 @@ const EditarPaciente = () => {
             url: URI + "cambiar_nom_ape?idp="+id_paciente+"&nombre="+nombre_paciente+"&apellido="+apellido_paciente,
             headers: headers 
         });
-          
-        navigate("/menupaciente");
+        swal("Datos Actualizados", "", "info");
+        navigate("/paciente");
     }
-    useEffect( ()=>{
-        getPacienteById()
-    }) 
+    
+    useEffect(()=>{
+        getPacienteById();
+    },[]) //Los corchetes [] evitan que se autodigiten los datos en los input de forma infinita
     
     const getPacienteById = async () => {
-
-        const res =  await axios({
-            method: "GET",
-            url: URI+"list/"+id,
-            headers: headers 
-        });       
-        setId_paciente(res.data.id_paciente)
-        setNombre_paciente(res.data.nombre_paciente)
-        setApellido_paciente(res.data.apellido_paciente)
-        setSexo(res.data.sexo)
-        setFecha_nacimiento(res.data.fecha_nacimiento)
+        try{
+            const res =  await axios({
+                method: "GET",
+                url : URI + "consulta/"+id,
+                headers: headers 
+            });           
+            setId_paciente(res.data.id_paciente)
+            setNombre_paciente(res.data.nombre_paciente)
+            setApellido_paciente(res.data.apellido_paciente)
+            setSexo(res.data.sexo)
+            setFecha_nacimiento(res.data.fecha_nacimiento)
+        }
+        catch (error) {
+            swal("¡No tiene Acceso a esta Opción!", "Presiona el butón!", "error");
+            navigate("/menupaciente");
+        }        
     }    
-
+    
     const Regresar = () => {               
         navigate("/menupaciente")
     }
@@ -71,9 +78,11 @@ const EditarPaciente = () => {
         <input
             value={nombre_paciente}
             onChange={(e) => setNombre_paciente(e.target.value)}
-            type="text"
-            disabled="false"
+            type="String"            
             className="form-control"
+            onInvalid={e => e.target.setCustomValidity('obligatorio')}
+            onInput={e => e.target.setCustomValidity('')}
+            required
         />
         </div>
         <div className="mb-3">
@@ -81,9 +90,11 @@ const EditarPaciente = () => {
         <input
             value={apellido_paciente}
             onChange={(e) => setApellido_paciente(e.target.value)}
-            type="text"
-            disabled="false"
+            type="String"            
             className="form-control"
+            onInvalid={e => e.target.setCustomValidity('obligatorio')}
+            onInput={e => e.target.setCustomValidity('')}
+            required
         />
         </div>
         <div className="mb-3">
