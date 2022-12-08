@@ -54,7 +54,45 @@ const CitaPaciente= () => {
             navigate("/menupaciente");
         }
     }
-    
+    //Cancelar la cita del paciente
+    const cancelarCita = async (id) => {
+        swal(
+            {
+                title: "¿Cancelar Cita?",
+                text: "Está seguro que quiere cancelar esta cita?",
+                icons: "Warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then(async (willUpdate) =>{
+                if (willUpdate){
+                    const res = await axios({
+                        method: "PUT",
+                        url: URI + "cancelar_cita?idc="+id+"&estado=C", //Agregamos la C(cancelada) en este método, porque no es necesario digitarla
+                        headers: headers 
+                    });                    
+                    getCitas()
+                } else{
+                    swal("No se canceló la cita",{ 
+                        icon: "info",
+                    });
+                }
+            });    
+    }
+
+    /*//Mensaje según el estado de la cita al intentar cancelar
+    const mensaje = async (estado) => {
+        if(estado==="A"){
+            swal("La cita se ha cancelado",{ 
+                icon: "success",
+            });
+        }else{
+            swal("Sólo se pueden cancelar citas Activas",{ 
+                icon: "error",
+            });
+        }
+    }*/
+
     const Regresar = () => {               
         navigate("/menupaciente")
 
@@ -69,9 +107,10 @@ const CitaPaciente= () => {
                             <tr>
                                 <th>ID Cita</th>
                                 <th>Fecha y Hora</th>
+                                <th>Observación</th>
                                 <th>Estado</th>
-                                <th>ID Medico</th>
-                                <th>ID Paciente</th>
+                                <th>Médico</th>
+                                <th>Paciente</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,16 +119,18 @@ const CitaPaciente= () => {
                                 <tr key={ cita.id_cita}>
                                     <td> { cita.id_cita} </td>
                                     <td> { cita.fecha_hora.substring(0,10)} </td>
+                                    <td> { cita.observacion } </td>
                                     <td> { cita.estado } </td>
-                                    <td> { cita.id_medico } </td>
-                                    <td> { cita.id_paciente} </td>                                    
-                                    <td>
-                                        <Link to={`/editarcitapaciente/${cita.id_cita}`} className='btn btn-dark'><i className="fas fa-trash"></i> Cancelar</Link>                                        
+                                    <td> { cita.medico.nombre_medico+" "+cita.medico.apellido_medico } </td>
+                                    <td> { cita.paciente.nombre_paciente+" "+cita.paciente.apellido_paciente} </td>                                    
+                                    <td>                                          
+                                        <button onClick={() => { cancelarCita(cita.id_cita) } } className='btn btn-danger'><i className="fas fa-eraser"></i>Cancelar</button>                                   
                                     </td>
                                 </tr>
                             )) }
                         </tbody>
-                    </table>                    
+                    </table>  
+                    <b>*A: Activa  -  C: Cancelada  -  F: Finalizada*</b>                  
                     <form className="d-flex">
                     <button className="btn btn-outline-dark" type="button" onClick={Regresar}>
                         Volver

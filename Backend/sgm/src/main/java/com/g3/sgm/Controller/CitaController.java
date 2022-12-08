@@ -153,29 +153,29 @@ public class CitaController {
     }
 
     @PutMapping(value="/agregar_observacion") 
-    public void agregar_observacion(@RequestParam("idm") String idm,@RequestParam("observacion") String observacion, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+    public void agregar_observacion(@RequestParam("idc") String idc,@RequestParam("observacion") String observacion, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
         Userr userr1=new Userr();
         userr1=userrRepository.login(usuario, Hash.sha1(clave));
         if (userr1!=null) {
-           citaService.agregar_observacion(idm, observacion);
+           citaService.agregar_observacion(idc, observacion);
         }          
     }
 
     @PutMapping(value="/terminar_cita") 
-    public void terminar_cita(@RequestParam("idm") String idm,@RequestParam("estado") String estado, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+    public void terminar_cita(@RequestParam("idc") String idc,@RequestParam("estado") String estado, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
         Userr userr1=new Userr();
         userr1=userrRepository.login(usuario, Hash.sha1(clave));
         if (userr1!=null) {
-           citaService.terminar_cita(idm, estado);
+           citaService.terminar_cita(idc, estado);
         }          
     }
 
     @PutMapping(value="/cancelar_cita") 
-    public void cancelar_cita(@RequestParam("idp") String idp,@RequestParam("estado") String estado, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+    public void cancelar_cita(@RequestParam("idc") String idc,@RequestParam("estado") String estado, @RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
         Userr userr1=new Userr();
         userr1=userrRepository.login(usuario, Hash.sha1(clave));
         if (userr1!=null) {
-           citaService.cancelar_cita(idp, estado);
+           citaService.cancelar_cita(idc, estado);
         }          
     }
     

@@ -6,9 +6,10 @@ const URI = "http://localhost:8080/userr/"
 
 const Login = () => {
     const navigate = useNavigate();
-    const [userrs, setUserrs] = useState([])
+    const [userrs, setUserrs] = useState([])   
     const [id_userr, setId_userr] = useState("");
     const [clave_userr, setClave_userr] = useState("");
+
     const guardar = async (e) => {
         e.preventDefault();
         
@@ -17,17 +18,18 @@ const Login = () => {
                 method : "GET",
                 url: URI + "login?usuario="+id_userr+"&clave="+clave_userr
             });          
-            setUserrs(res.data)
-            if (res.data.id_userr==null) {
-                
+            setUserrs(res.data) 
+                     
+            if (res.data.id_userr==null) {                
                 swal("Usuario o Contraseña incorrectos", "Presiona el botón!", "error");
                 navigate("/");
                 
-            } else {
+            } else {                
                 sessionStorage.setItem("usuario",id_userr);
-                sessionStorage.setItem("clave",clave_userr);
+                sessionStorage.setItem("clave",clave_userr);                                                       
                 swal("Bienvenido "+res.data.email+"!", "Presiona el botón!", "success");
-                if(res.data.rol==="P")  //
+                
+                if(res.data.rol==="P")  
                     navigate("/menupaciente");
                 else
                     navigate("/menumedico");

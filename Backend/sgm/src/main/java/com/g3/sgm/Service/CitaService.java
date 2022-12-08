@@ -45,18 +45,18 @@ public class CitaService {
     }
 
     @Transactional(readOnly=false)
-    public void agregar_observacion (String idm, String observacion){
-        citaRepository.agregar_observacion(idm, observacion);
+    public void agregar_observacion (String idc, String observacion){
+        citaRepository.agregar_observacion(idc, observacion);
     }
 
     @Transactional(readOnly=false)
-    public void terminar_cita(String idm, String estado){
-        citaRepository.terminar_cita(idm, estado);
+    public void terminar_cita(String idc, String estado){
+        citaRepository.terminar_cita(idc, estado);
     }
 
     @Transactional(readOnly=false)
-    public void cancelar_cita(String idp, String estado){
-        citaRepository.cancelar_cita(idp, estado);
+    public void cancelar_cita(String idc, String estado){
+        citaRepository.cancelar_cita(idc, estado);
     }   
 
 }

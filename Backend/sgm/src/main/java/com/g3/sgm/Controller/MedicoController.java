@@ -136,4 +136,16 @@ public class MedicoController {
         }        
     }
 
+    @GetMapping("/consulta/{id}") 
+    @ResponseBody
+    public ResponseEntity<Medico> consultaPorId_userr(@PathVariable String id,@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){ 
+        Userr userr=new Userr();
+        userr=userrRepository.login(usuario, Hash.sha1(clave));
+        if (userr!=null) {
+            return new ResponseEntity<>(medicoService.findById(id),HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }   
+    }
+
 }
