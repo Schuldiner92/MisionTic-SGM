@@ -25,8 +25,7 @@ public class Cita implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id_cita")    
-    private int id_cita;  
-    @NotEmpty(message = "El campo fecha no debe ser vacío")
+    private int id_cita;      
     @Column(name="fecha_hora")
     private Date fecha_hora;      
     @Column(name="observacion")

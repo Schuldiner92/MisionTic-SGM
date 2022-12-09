@@ -17,10 +17,10 @@ const MenuMedico = () => {
             <div className="container-fluid">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                    <a className='btn btn-dark' href="/paciente"><i className="fas fa-user-alt"></i> Mis Datos</a>
+                    <a className='btn btn-dark' href="/paciente"><i className="fas fa-user-alt fa-lg"></i> Mis Datos</a>
                     </li>
                     <li className="nav-item">
-                    <a className='btn btn-dark' href="/citaspaciente"><i className="fas fa-user-alt"></i> Citas</a>
+                    <a className='btn btn-dark' href="/citaspaciente"><i className="fas fa-book-medical fa-lg"></i> Citas</a>
                     </li>
                 </ul>
                 <form className="d-flex">

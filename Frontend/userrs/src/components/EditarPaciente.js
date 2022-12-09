@@ -46,6 +46,7 @@ const EditarPaciente = () => {
             setApellido_paciente(res.data.apellido_paciente)
             setSexo(res.data.sexo)
             setFecha_nacimiento(res.data.fecha_nacimiento)
+            console.log(nombre_paciente)//Solucion temporal 
         }
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");
@@ -53,7 +54,7 @@ const EditarPaciente = () => {
         }        
     }    
     
-    const Regresar = () => {               
+    const Cancelar = () => {               
         navigate("/paciente")
     }
 
@@ -122,8 +123,8 @@ const EditarPaciente = () => {
         </button>
     </form>
     <p></p>
-    <button className="btn btn-outline-dark" type="button" onClick={Regresar}>
-        Volver
+    <button className="btn btn-outline-dark" type="button" onClick={Cancelar}>
+        Cancelar
     </button>
     </div>
     </div>

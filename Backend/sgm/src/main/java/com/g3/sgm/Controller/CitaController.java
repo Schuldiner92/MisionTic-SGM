@@ -116,6 +116,18 @@ public class CitaController {
     }
 
     //Consumo de Recursos userr
+    @PostMapping(value="/agendar")
+    @ResponseBody
+    public ResponseEntity<Cita> agendar(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario, @Valid @RequestBody Cita cita){   
+        Userr userr=new Userr();
+        userr=userrRepository.login(usuario, Hash.sha1(clave));
+        if (userr!=null) {
+            return new ResponseEntity<>(citaService.save(cita), HttpStatus.OK); 
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); 
+        }            
+    }
+
     @GetMapping("/consulta_cita_paciente")
     @ResponseBody
     public ResponseEntity<List<Cita>> consulta_cita_paciente(@RequestParam ("idp") String idp,@RequestHeader ("usuario") String usuario,@RequestHeader ("clave") String clave) { 

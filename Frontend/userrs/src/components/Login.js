@@ -45,7 +45,7 @@ const Login = () => {
         
         <div>
              
-            <h3>Iniciar Sesión</h3>
+            <h2>Iniciar Sesión</h2>
             <div className="container col-2">
             <form onSubmit={guardar}>
                 

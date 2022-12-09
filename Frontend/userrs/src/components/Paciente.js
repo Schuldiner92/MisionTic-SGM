@@ -14,7 +14,7 @@ const Paciente = () => {
     const [pacientes, setPacientes] = useState([])
 
     useEffect(() =>{
-        getPacientes()
+        getPacientes([])
     })
 
     const getPacientes = async () =>{        
@@ -24,7 +24,8 @@ const Paciente = () => {
                 url : URI + "consulta_paciente?idu="+sessionStorage.getItem("usuario"),
                 headers: headers                
             });                       
-            setPacientes(res.data)
+            setPacientes(res.data)   
+            console.log(pacientes)//Solucion temporal         
         }
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el butón!", "error");
@@ -40,6 +41,7 @@ const Paciente = () => {
         <div className='container'>
             <div className='row'>
                 <div className='col'>
+                    <h2>Mis Datos Personales</h2>                   
                     <table className='table'>
                         <thead className='table-primary'>
                             <tr>
@@ -60,7 +62,7 @@ const Paciente = () => {
                                     <td> { paciente.sexo } </td>
                                     <td> { paciente.fecha_nacimiento.substring(0,10) } </td>                                    
                                     <td>
-                                        <Link to={`/editarpaciente/${paciente.id_paciente}`} className='btn btn-dark'><i className="far fa-edit"></i> Editar</Link>                                        
+                                        <Link to={`/editarpaciente/${paciente.id_paciente}`} className='btn btn-dark'><i className="far fa-edit fa-lg"></i> Editar</Link>                                        
                                     </td>
                                 </tr>
                             )) }

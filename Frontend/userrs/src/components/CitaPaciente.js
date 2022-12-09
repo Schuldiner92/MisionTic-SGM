@@ -1,7 +1,7 @@
 import swal from "sweetalert"
 import axios from "axios";
 import { useState,useEffect }  from "react";
-import { Link,useNavigate,useParams} from "react-router-dom";
+import { useNavigate,useParams} from "react-router-dom";
 const URI2 = "http://localhost:8080/paciente/"
 const URI = "http://localhost:8080/cita/"
 
@@ -23,12 +23,12 @@ const CitaPaciente= () => {
     
     const getPacienteById = async () => {
         try{
-            const res =  await axios({
+            const res1 =  await axios({
                 method: "GET",
                 url : URI2 + "consulta/"+sessionStorage.getItem("usuario"),
                 headers: headers 
             });           
-            setId_paciente(res.data.id_paciente)                                                             
+            setId_paciente(res1.data.id_paciente)                                                             
         }        
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");
@@ -37,7 +37,7 @@ const CitaPaciente= () => {
     }
     //Consulta de citas del paciente
     useEffect(() =>{
-        getCitas()
+        getCitas([])
     })
   
     const getCitas = async () =>{        
@@ -47,7 +47,8 @@ const CitaPaciente= () => {
                 url : URI + "consulta_cita_paciente?idp="+id_paciente, //usamos el id_paciente de la funcion getPacienteById
                 headers: headers                
             });                       
-            setCitas(res.data)
+            setCitas(res.data)   
+            console.log(citas)//Solucion temporal        
         }
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");
@@ -72,6 +73,9 @@ const CitaPaciente= () => {
                         headers: headers 
                     });                    
                     getCitas()
+                    swal("La cita se ha cancelado",{ 
+                        icon: "info",
+                    });
                 } else{
                     swal("No se canceló la cita",{ 
                         icon: "info",
@@ -79,19 +83,6 @@ const CitaPaciente= () => {
                 }
             });    
     }
-
-    /*//Mensaje según el estado de la cita al intentar cancelar
-    const mensaje = async (estado) => {
-        if(estado==="A"){
-            swal("La cita se ha cancelado",{ 
-                icon: "success",
-            });
-        }else{
-            swal("Sólo se pueden cancelar citas Activas",{ 
-                icon: "error",
-            });
-        }
-    }*/
 
     const Regresar = () => {               
         navigate("/menupaciente")
@@ -102,6 +93,10 @@ const CitaPaciente= () => {
         <div className='container'>
             <div className='row'>
                 <div className='col'>
+                    <h2>Mis Citas</h2>
+                    <p></p>
+                    <a className='btn btn-dark' href="/agendarcita"><i className="far fa-calendar-plus fa-lg"></i> Agendar</a>
+                    <p></p>
                     <table className='table'>
                         <thead className='table-primary'>
                             <tr>
@@ -123,8 +118,13 @@ const CitaPaciente= () => {
                                     <td> { cita.estado } </td>
                                     <td> { cita.medico.nombre_medico+" "+cita.medico.apellido_medico } </td>
                                     <td> { cita.paciente.nombre_paciente+" "+cita.paciente.apellido_paciente} </td>                                    
-                                    <td>                                          
-                                        <button onClick={() => { cancelarCita(cita.id_cita) } } className='btn btn-danger'><i className="fas fa-eraser"></i>Cancelar</button>                                   
+                                    <td>                                                      
+                                        <button 
+                                            onClick={() => { cancelarCita(cita.id_cita) } } 
+                                            className='btn btn-dark'
+                                            hidden={cita.estado!=="A"}> {/*Se oculta el botón para citas que no sean A(Activas)*/}
+                                            <i className="far fa-calendar-times fa-lg"></i>Cancelar                                            
+                                        </button>                                   
                                     </td>
                                 </tr>
                             )) }

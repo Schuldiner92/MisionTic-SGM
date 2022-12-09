@@ -147,5 +147,16 @@ public class MedicoController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }   
     }
-
+    
+    @GetMapping("/consulta") 
+    @ResponseBody
+    public ResponseEntity<List<Medico>> consultarTodo_userr(@RequestHeader("clave")String clave,@RequestHeader("usuario")String usuario){
+        Userr userr=new Userr();
+        userr=userrRepository.login(usuario, Hash.sha1(clave));
+        if (userr!=null) {
+            return new ResponseEntity<>(medicoService.findByAll(),HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }            
+    }
 }
