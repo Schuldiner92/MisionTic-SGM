@@ -1,7 +1,7 @@
 import swal from "sweetalert"
 import axios from "axios";
 import { useState,useEffect }  from "react";
-import { useNavigate,useParams} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 const URI2 = "http://localhost:8080/paciente/"
 const URI = "http://localhost:8080/cita/"
 
@@ -47,8 +47,7 @@ const CitaPaciente= () => {
                 url : URI + "consulta_cita_paciente?idp="+id_paciente, //usamos el id_paciente de la funcion getPacienteById
                 headers: headers                
             });                       
-            setCitas(res.data)   
-            console.log(citas)//Solucion temporal        
+            setCitas(res.data)           
         }
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");

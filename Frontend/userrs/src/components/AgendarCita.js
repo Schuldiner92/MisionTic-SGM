@@ -93,6 +93,7 @@ const AgendarCita = () => {
             setId_Paciente(res2.data.id_paciente)  
             setNombre_pacientes(res2.data.nombre_paciente)   
             setApellido_pacientes(res2.data.apellido_paciente)  
+            setEstado("A") //Estado no un es campo de paciente, pero al ponerlo aquí no genera problemas
         }
         catch (error) {            
         }
@@ -111,9 +112,10 @@ const AgendarCita = () => {
         <div className="container col-2">
         <form onSubmit={guardar}>
             <div className="mb-3">
-            <label className="form-label">Fecha</label>
+            <label className="form-label">Fecha</label> 
             <input     
-                type="text" 
+                type="date" 
+
                 onChange={(e) => setFecha_hora(e.target.value)}              
                 className="form-control"
                 required
@@ -124,13 +126,10 @@ const AgendarCita = () => {
             <div className="mb-3">
             <label className="form-label">Estado</label>
             <input   
-                value="A"  
+                value={estado}  
                 type="text" 
                 onChange={(e) => setEstado(e.target.value)}              
-                className="form-control"
-                required
-                onInvalid={e => e.target.setCustomValidity('El estado es obligatorio')}
-                onInput={e => e.target.setCustomValidity('')}
+                className="form-control"                             
                 disabled
             />
             </div>
@@ -148,8 +147,9 @@ const AgendarCita = () => {
             <label className="form-label">Medico</label>
             <select
                 value={medico}
-                onChange={(e) => setMedico(e.target.value)}
-                className="form-control">
+                onChange={(e) => setMedico(e.target.value)}                
+                className="form-control" required>
+                    <option value="">Seleccione un Medico</option>
                     { medicos.map ( (medico) => (
                         <option value={medico.id_medico}>{medico.nombre_medico+" "+medico.apellido_medico+" ("+medico.especialidad+")"}</option>
                     )) 

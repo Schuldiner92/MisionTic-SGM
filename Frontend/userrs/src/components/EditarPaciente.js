@@ -46,7 +46,6 @@ const EditarPaciente = () => {
             setApellido_paciente(res.data.apellido_paciente)
             setSexo(res.data.sexo)
             setFecha_nacimiento(res.data.fecha_nacimiento)
-            console.log(nombre_paciente)//Solucion temporal 
         }
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");
