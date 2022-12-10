@@ -24,7 +24,7 @@ const Paciente = () => {
                 url : URI + "consulta_paciente?idu="+sessionStorage.getItem("usuario"),
                 headers: headers                
             });                       
-            setPacientes(res.data)                  
+            setPacientes(res.data)                        
         }
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el butón!", "error");

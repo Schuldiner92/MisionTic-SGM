@@ -69,7 +69,7 @@ const EditarPaciente = () => {
             value={id_paciente}
             onChange={(e) => setId_paciente(e.target.value)}
             type="text"
-            disabled="false"
+            disabled
             className="form-control"
         />
         </div>
@@ -103,7 +103,7 @@ const EditarPaciente = () => {
             value={sexo}
             onChange={(e) => setSexo(e.target.value)}
             type="text"
-            disabled="false"
+            disabled
             className="form-control"
         />
         </div>
@@ -113,7 +113,7 @@ const EditarPaciente = () => {
             value={fecha_nacimiento.substring(0,10)}
             onChange={(e) => setFecha_nacimiento(e.target.value)}
             type="text"
-            disabled="false"
+            disabled
             className="form-control"
         />
         </div>            

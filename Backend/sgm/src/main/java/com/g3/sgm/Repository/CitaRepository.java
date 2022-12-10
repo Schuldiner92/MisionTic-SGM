@@ -19,8 +19,7 @@ public interface CitaRepository extends CrudRepository<Cita, Integer>{
     //Seleccionar cita de un paciente en particular
     @Transactional(readOnly=true)
     @Query(value="SELECT * FROM cita WHERE id_medico= :idm ORDER BY estado, fecha_hora ASC", nativeQuery=true)
-    public List<Cita> consulta_cita_medico(@Param("idm") String idm); 
-    //Crear cita (por un paciente)    
+    public List<Cita> consulta_cita_medico(@Param("idm") String idm);     
     //Agregar datos al campo observacion (por un médico)
     @Transactional(readOnly=false)   
     @Modifying

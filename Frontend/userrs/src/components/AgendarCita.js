@@ -3,6 +3,9 @@ import swal from "sweetalert"
 import axios from "axios";
 import { useState,useEffect }  from "react";
 import { useNavigate} from "react-router-dom";
+//ms y moment se usan para validar fechas
+import ms from 'ms';
+import moment from 'moment';//
 const URI = "http://localhost:8080/cita/"
 const URI2 = "http://localhost:8080/paciente/"
 const URI3 = "http://localhost:8080/medico/"
@@ -19,8 +22,20 @@ const AgendarCita = () => {
     const[id_paciente,setId_Paciente] = useState("");
     const[nombre_paciente,setNombre_pacientes] = useState("");
     const[apellido_paciente,setApellido_pacientes] = useState("");
-    const navigate = useNavigate();    
+    const navigate = useNavigate();  
     
+    //Fecha minima y máxima usando ms y moment
+    const [minDate, setMinDate] = useState(null)
+    const [maxDate, setMaxDate] = useState(null)
+    useEffect(() => {
+        const minsec = ms('60d') //Citas con un máximo 60 días en el futuro
+        const aux = ms('1d')
+        const min_date = new Date(+new Date()+aux);
+        const max_date = new Date(+new Date()+minsec);
+        setMinDate(moment(min_date).format('YYYY-MM-DD'));
+        setMaxDate(moment(max_date).format('YYYY-MM-DD'))
+    }) //
+       
     const guardar = async (e) => {
 
         e.preventDefault();
@@ -115,7 +130,8 @@ const AgendarCita = () => {
             <label className="form-label">Fecha</label> 
             <input     
                 type="date" 
-
+                min={minDate}
+                max={maxDate}
                 onChange={(e) => setFecha_hora(e.target.value)}              
                 className="form-control"
                 required
@@ -144,16 +160,16 @@ const AgendarCita = () => {
             </select>
             </div>
             <div className="mb-3">
-            <label className="form-label">Medico</label>
+            <label className="form-label">Médico</label>
             <select
                 value={medico}
                 onChange={(e) => setMedico(e.target.value)}                
                 className="form-control" required>
-                    <option value="">Seleccione un Medico</option>
+                    <option value="">Seleccione un Médico</option>
                     { medicos.map ( (medico) => (
                         <option value={medico.id_medico}>{medico.nombre_medico+" "+medico.apellido_medico+" ("+medico.especialidad+")"}</option>
                     )) 
-                    }
+                    }                
             </select>
             </div>
             <button type="submit" className="btn btn-dark">
