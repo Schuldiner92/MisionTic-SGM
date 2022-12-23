@@ -23,10 +23,12 @@ const CitaMedico = () => {
         try{
             const res1 =  await axios({
                 method: "GET",
-                url : URI2 + "consulta/"+sessionStorage.getItem("usuario"),
+                url : URI2 + "consulta_medico?idu="+sessionStorage.getItem("usuario"),
                 headers: headers 
             });           
-            setId_medico(res1.data.id_medico)                                                             
+            res1.data.map ( (medico) => ( //Mapeamos el id del medico
+                setId_medico(medico.id_medico)
+            ))                                                            
         }        
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");
@@ -52,6 +54,36 @@ const CitaMedico = () => {
         }
     }
 
+    //Cancelar la cita del paciente
+    const finalizarCita = async (id) => {
+        swal(
+            {
+                title: "¿Finalizar?",
+                text: "Está seguro que quiere finalizar esta cita?",
+                icons: "Warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then(async (willUpdate) =>{
+                if (willUpdate){
+                    const res = await axios({
+                        method: "PUT",
+                        url: URI + "terminar_cita?idc="+id+"&estado=F", //Agregamos la F(Finalizada) en este método, porque no es necesario digitarla
+                        headers: headers 
+                    });                    
+                    getCitas()
+                    swal("La cita se ha marcado como finlaizada",{ 
+                        icon: "info",
+                    });
+                } else{
+                    swal("No se finalizó la cita ",{ 
+                        icon: "info",
+                    });
+                }
+            });    
+    }
+    
+    
 
     const Regresar = () => {               
         navigate("/menumedico")
@@ -62,7 +94,7 @@ const CitaMedico = () => {
         <div className='container'>
             <div className='row'>
                 <div className='col'>                     
-                    <h2>Mis Citas</h2>                    
+                    <h2>Citas</h2>                    
                     <p></p>
                     <table className='table'>
                         <thead className='table-primary'>
@@ -86,7 +118,15 @@ const CitaMedico = () => {
                                     <td> { cita.medico.nombre_medico+" "+cita.medico.apellido_medico } </td>
                                     <td> { cita.paciente.nombre_paciente+" "+cita.paciente.apellido_paciente} </td>                                    
                                     <td>                                                      
-                                        <Link to={`/editarcita/${cita.id_cita}`} className='btn btn-dark fa-lg'><i className="fas fa-edit"></i></Link>                                   
+                                    <button 
+                                            onClick={() => { finalizarCita(cita.id_cita) } } 
+                                            className='btn btn-dark'
+                                            hidden={cita.estado!=="A"}> {/*Se oculta el botón para citas que no sean A(Activas)*/}
+                                            <i className="fas fa-calendar-check fa-lg"></i> Finalizar                                           
+                                    </button> 
+                                    </td>
+                                    <td>
+                                        <Link to={`/editarcita/${cita.id_cita}`} hidden={cita.estado==="C"} className='btn btn-dark'><i className="far fa-edit fa-lg"></i> Editar</Link>                                        
                                     </td>
                                 </tr>
                             )) }

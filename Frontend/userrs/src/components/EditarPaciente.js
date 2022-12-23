@@ -17,8 +17,7 @@ const EditarPaciente = () => {
     const[sexo, setSexo] =useState("");
     const[fecha_nacimiento, setFecha_nacimiento] =useState("");
     const navigate = useNavigate();    
-    const {id} = useParams()
-
+    
     const editar = async (e) => {
         e.preventDefault();
         const UpdatePaciente= await axios({
@@ -37,15 +36,17 @@ const EditarPaciente = () => {
     const getPacienteById = async () => {
         try{
             const res =  await axios({
-                method: "GET",
-                url : URI + "consulta/"+id,
-                headers: headers 
-            });           
-            setId_paciente(res.data.id_paciente)
-            setNombre_paciente(res.data.nombre_paciente)
-            setApellido_paciente(res.data.apellido_paciente)
-            setSexo(res.data.sexo)
-            setFecha_nacimiento(res.data.fecha_nacimiento)
+                method : "GET",
+                url : URI + "consulta_paciente?idu="+sessionStorage.getItem("usuario"),
+                headers: headers   
+            });       
+            res.data.map ( (paciente) => (  //Se mapea el diccionario porque es un GET personalizado                        
+                setId_paciente(paciente.id_paciente),
+                setNombre_paciente(paciente.nombre_paciente),
+                setApellido_paciente(paciente.apellido_paciente),
+                setSexo(paciente.sexo),
+                setFecha_nacimiento(paciente.fecha_nacimiento)                                                
+            ))
         }
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");

@@ -11,7 +11,6 @@ let headers = {
 };
 
 const CitaPaciente= () => {
-
     const navigate = useNavigate();
     const[id_paciente, setId_paciente] =useState();    
     const [citas, setCitas] = useState([])      
@@ -24,11 +23,13 @@ const CitaPaciente= () => {
     const getPacienteById = async () => {
         try{
             const res1 =  await axios({
-                method: "GET",
-                url : URI2 + "consulta/"+sessionStorage.getItem("usuario"),
+                method : "GET",
+                url : URI2 + "consulta_paciente?idu="+sessionStorage.getItem("usuario"),
                 headers: headers 
             });           
-            setId_paciente(res1.data.id_paciente)                                                             
+            res1.data.map ( (paciente) => ( //Mapeamos el id del paciente
+                setId_paciente(paciente.id_paciente)
+            ))                                                                   
         }        
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");
