@@ -43,7 +43,7 @@ const EditarCita= () => {
             setNombre_paciente(res.data.paciente.nombre_paciente)
             setApellido_paciente(res.data.paciente.apellido_paciente)
             setObservacion(res.data.Observacion)                                                                      
-            alert(id_cita+" "+nombre_paciente+" "+apellido_paciente+" "+observacion)
+            alert(nombre_paciente+" "+apellido_paciente)
         }
         catch (error) {
             swal("¡No tiene Acceso a esta Opción!", "Presiona el botón!", "error");
